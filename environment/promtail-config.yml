@@ -1,0 +1,23 @@
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+
+clients:
+  - url: http://loki:3100/loki/api/v1/push
+
+positions:
+  filename: /tmp/positions.yaml
+
+scrape_configs:
+  # Docker container logs
+  - job_name: docker
+    docker:
+      host: unix:///var/run/docker.sock
+      use_hostname: false
+    relabel_configs:
+      - source_labels: ['__meta_docker_container_name']
+        target_label: 'job'
+      - source_labels: ['__meta_docker_container_name']
+        target_label: 'container_name'
+      - source_labels: ['__meta_docker_container_id']
+        target_label: 'container_id'
