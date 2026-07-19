@@ -3,7 +3,6 @@ import { useAuth } from '../features/auth/AuthProvider'
 import { BoardCreatePanel } from '../features/boards/BoardCreatePanel'
 import { BoardListPanel } from '../features/boards/BoardListPanel'
 import { LaneBoardDemo } from '../features/lanes/LaneBoardDemo'
-import { appEnv } from '../lib/env'
 
 export function DashboardPage() {
   const auth = useAuth()
@@ -41,20 +40,24 @@ export function DashboardPage() {
           and separate feature modules for auth, boards, and lane interactions.
         </p>
 
-        <dl className="env-summary">
+        {auth.error ? <p className="empty-state error">{auth.error}</p> : null}
+
+        {auth.config ? (
+          <dl className="env-summary">
           <div>
             <dt>API</dt>
-            <dd>{appEnv.apiUrl}</dd>
+            <dd>{auth.config.apiBasePath}</dd>
           </div>
           <div>
             <dt>Realm</dt>
-            <dd>{appEnv.keycloakRealm}</dd>
+            <dd>{auth.config.keycloakRealm}</dd>
           </div>
           <div>
             <dt>Client</dt>
-            <dd>{appEnv.keycloakClientId}</dd>
+            <dd>{auth.config.keycloakClientId}</dd>
           </div>
-        </dl>
+          </dl>
+        ) : null}
       </section>
 
       <section className="content-grid">

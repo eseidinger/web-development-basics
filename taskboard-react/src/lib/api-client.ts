@@ -1,5 +1,3 @@
-import { appEnv } from './env'
-
 export type AccessTokenProvider = () => Promise<string | undefined>
 
 let accessTokenProvider: AccessTokenProvider = async () => undefined
@@ -21,7 +19,7 @@ export async function apiFetch<T>(path: string, init?: RequestInit): Promise<T> 
     headers.set('Authorization', `Bearer ${token}`)
   }
 
-  const response = await fetch(`${appEnv.apiUrl}${path}`, {
+  const response = await fetch(path, {
     ...init,
     headers,
   })
