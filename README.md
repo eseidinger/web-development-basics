@@ -21,7 +21,6 @@ All application documentation is in the `documentation/` folder:
 - **[architecture.md](documentation/architecture.md)** — System components, their responsibilities, communication patterns, and design principles.
 - **[api.md](documentation/api.md)** — REST API contracts: endpoints, request/response formats, error handling, and authorization rules.
 - **[db-schema.md](documentation/db-schema.md)** — Relational schema design, entities, relationships, constraints, and indexes.
-- **[spring.md](documentation/spring.md)** — Spring Boot implementation reference (optional; shows one way to implement the design).
 
 ## Project Structure
 
@@ -36,8 +35,7 @@ web-development-basics/
 │   ├── task-board.md                  # Business requirements
 │   ├── architecture.md                # System design
 │   ├── api.md                         # REST API reference
-│   ├── db-schema.md                   # Database schema
-│   └── spring.md                      # Spring Boot implementation guide
+│   └── db-schema.md                   # Database schema
 └── taskboard-spring/                  # Spring Boot backend implementation
     ├── pom.xml
     ├── src/
@@ -64,7 +62,7 @@ web-development-basics/
 
 5. **Implement**
 
-   Use the framework and language of your choice. [spring.md](documentation/spring.md) provides one example implementation in Spring Boot; the design is framework-agnostic and can be implemented in any technology stack.
+   Use the framework and language of your choice. The design is framework-agnostic and can be implemented in any technology stack.
 
 ## System Architecture
 
