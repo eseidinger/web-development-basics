@@ -1,0 +1,22 @@
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI:http://localhost:8090/realms/taskboard}
+          jwk-set-uri: ${SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI:http://localhost:8090/realms/taskboard/protocol/openid-connect/certs}
+
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/taskboard_dev}
+    username: ${SPRING_DATASOURCE_USERNAME:taskboard}
+    password: ${SPRING_DATASOURCE_PASSWORD:taskboard_dev_password}
+
+management:
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+
+logging:
+  pattern:
+    console: "%d{ISO8601} [%X{traceId}] [%thread] %-5level %logger{36} - %msg%n"
