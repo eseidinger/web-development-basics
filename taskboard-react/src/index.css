@@ -1,0 +1,86 @@
+:root {
+  --text: #5b4e42;
+  --text-h: #241811;
+  --bg: #f6efe8;
+  --border: #ddcebf;
+  --code-bg: #fff7ef;
+  --accent: #e1592a;
+  --accent-strong: #8e3417;
+
+  --sans: 'Segoe UI', 'Inter', sans-serif;
+  --heading: 'Segoe UI', 'Inter', sans-serif;
+  --mono: ui-monospace, Consolas, monospace;
+
+  font: 18px/145% var(--sans);
+  letter-spacing: 0.18px;
+  color: var(--text);
+  background: var(--bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  @media (max-width: 1024px) {
+    font-size: 16px;
+  }
+}
+
+#root {
+  width: min(1200px, calc(100% - 2rem));
+  margin: 0 auto;
+  min-height: 100svh;
+  padding: 1.25rem 0 2rem;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(circle at top left, rgba(255, 152, 109, 0.25), transparent 26%),
+    linear-gradient(180deg, #f7f1ea, #f3ebe3 40%, #f0e6dc);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--heading);
+  font-weight: 700;
+  color: var(--text-h);
+}
+
+h1 {
+  font-size: clamp(2.8rem, 7vw, 5.3rem);
+  line-height: 0.96;
+  letter-spacing: -0.06em;
+  margin: 0 0 1rem;
+}
+
+h2 {
+  font-size: 1.45rem;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  margin: 0;
+}
+
+h3 {
+  font-size: 1.05rem;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+code {
+  font-family: var(--mono);
+  display: inline-flex;
+  border-radius: 4px;
+  color: var(--text-h);
+}
+
+code {
+  font-size: 15px;
+  line-height: 135%;
+  padding: 4px 8px;
+  background: var(--code-bg);
+}
