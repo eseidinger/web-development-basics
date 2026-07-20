@@ -20,61 +20,6 @@ services:
     networks:
       - taskboard-network
 
-  # Keycloak - OIDC Provider
-  keycloak:
-    image: quay.io/keycloak/keycloak:latest
-    container_name: taskboard-keycloak
-    environment:
-      KC_DB: postgres
-      KC_DB_URL: jdbc:postgresql://postgres:5432/keycloak
-      KC_DB_USERNAME: taskboard
-      KC_DB_PASSWORD: taskboard_dev_password
-      KEYCLOAK_ADMIN: admin
-      KEYCLOAK_ADMIN_PASSWORD: admin
-      KC_HOSTNAME: localhost
-      KC_HOSTNAME_PORT: 8090
-      KC_HTTP_ENABLED: "true"
-      KC_HOSTNAME_STRICT: "false"
-    ports:
-      - "8090:8080"
-    depends_on:
-      postgres:
-        condition: service_healthy
-    volumes:
-      - keycloak_data:/opt/keycloak/data
-    command:
-      - start-dev
-    networks:
-      - taskboard-network
-    healthcheck:
-      test: ["CMD-SHELL", "exec 3<>/dev/tcp/localhost/8080 && exec 3>&- && exec 3>&- || exit 1"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
-  # Keycloak realm initialization
-  keycloak-init:
-    image: alpine:latest
-    container_name: taskboard-keycloak-init
-    depends_on:
-      keycloak:
-        condition: service_healthy
-    volumes:
-      - ./keycloak-realm-export.json:/tmp/keycloak-realm-export.json:ro
-      - ./init-keycloak.sh:/tmp/init-keycloak.sh:ro
-    entrypoint: /bin/sh
-    command:
-      - -c
-      - |
-        apk add --no-cache curl jq
-        sh /tmp/init-keycloak.sh
-    networks:
-      - taskboard-network
-    environment:
-      - KEYCLOAK_URL=http://keycloak:8080
-    profiles:
-      - init
-
   # Prometheus - Metrics collection
   prometheus:
     image: prom/prometheus:latest
@@ -157,7 +102,6 @@ services:
 
 volumes:
   postgres_data:
-  keycloak_data:
   prometheus_data:
   loki_data:
   grafana_data:

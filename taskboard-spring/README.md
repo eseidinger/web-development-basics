@@ -6,7 +6,8 @@ Spring Boot backend for the Task Board application.
 
 - Java 25 installed locally
 - Maven available, or use the included Maven wrapper
-- PostgreSQL and Keycloak running from the local environment stack
+- PostgreSQL running from the local environment stack
+- Access to the hosted Keycloak realm (`taskboard-dev`)
 
 The backend reads local development settings from [.env](/home/eseidinger/dev/web-development-basics/taskboard-spring/.env).
 
@@ -22,8 +23,7 @@ cd /home/eseidinger/dev/web-development-basics/environment
 That starts:
 
 - PostgreSQL on `localhost:5432`
-- Keycloak on `http://localhost:8090`
-- the `taskboard` realm with the frontend and API clients
+- observability services (Grafana/Prometheus/Loki/Jaeger)
 
 ## Run the Spring application
 
@@ -72,13 +72,10 @@ cd /home/eseidinger/dev/web-development-basics/taskboard-spring
 
 ## Local authentication
 
-The backend is configured as an OAuth2 resource server and validates Keycloak access tokens.
+The backend is configured as an OAuth2 resource server and validates access tokens from:
 
-Local Keycloak test users:
-
-- `alice` / `password`
-- `bob` / `password`
-- `charlie` / `password`
+- Issuer: `https://keycloak.eseidinger.de/realms/taskboard-dev`
+- Frontend client: `taskboard`
 
 Board permissions are enforced from the application database via `board_membership.role`, not from Keycloak realm roles.
 
@@ -87,6 +84,6 @@ Board permissions are enforced from the application database via `board_membersh
 If startup fails:
 
 1. Check that PostgreSQL is reachable on `localhost:5432`.
-2. Check that Keycloak is reachable at `http://localhost:8090/realms/taskboard`.
-3. Verify the realm exists by running the environment setup again.
+2. Check that Keycloak is reachable at `https://keycloak.eseidinger.de/realms/taskboard-dev`.
+3. Verify your configured client is `taskboard`.
 4. Make sure you are using `spring-boot:run` instead of `boot:run`.
